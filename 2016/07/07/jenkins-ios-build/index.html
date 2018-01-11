@@ -1,0 +1,695 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="iOS,jenkins," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="fatsoon的博客" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="Mac系统中使用jenkins配合xcode插件进行iOS打包环境搭建java环境本文所使用的是Java 7，其它版本并没有进行验证，不保证会出现小问题。jdk请自行去oracle下载安装 TomcatTomcat用来做jenkins的容器，本文使用的是Tomcat 7，其它版本没有进行验证。请在Apache Tomcat官网下载zip版 jenkins下载jenkins.war 苹果开发者证书和">
+<meta name="keywords" content="iOS,jenkins">
+<meta property="og:type" content="article">
+<meta property="og:title" content="jenkins-ios-build">
+<meta property="og:url" content="http://fatsoon.com/2016/07/07/jenkins-ios-build/index.html">
+<meta property="og:site_name" content="fatsoon的博客">
+<meta property="og:description" content="Mac系统中使用jenkins配合xcode插件进行iOS打包环境搭建java环境本文所使用的是Java 7，其它版本并没有进行验证，不保证会出现小问题。jdk请自行去oracle下载安装 TomcatTomcat用来做jenkins的容器，本文使用的是Tomcat 7，其它版本没有进行验证。请在Apache Tomcat官网下载zip版 jenkins下载jenkins.war 苹果开发者证书和">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://fatsoon.com/images/jenkins-ios-build-0.png">
+<meta property="og:image" content="http://fatsoon.com/images/jenkins-ios-build-1.png">
+<meta property="og:image" content="http://fatsoon.com/images/jenkins-ios-build-2.png">
+<meta property="og:image" content="http://fatsoon.com/images/jenkins-ios-build-3.png">
+<meta property="og:updated_time" content="2018-01-11T14:45:46.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="jenkins-ios-build">
+<meta name="twitter:description" content="Mac系统中使用jenkins配合xcode插件进行iOS打包环境搭建java环境本文所使用的是Java 7，其它版本并没有进行验证，不保证会出现小问题。jdk请自行去oracle下载安装 TomcatTomcat用来做jenkins的容器，本文使用的是Tomcat 7，其它版本没有进行验证。请在Apache Tomcat官网下载zip版 jenkins下载jenkins.war 苹果开发者证书和">
+<meta name="twitter:image" content="http://fatsoon.com/images/jenkins-ios-build-0.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://fatsoon.com/2016/07/07/jenkins-ios-build/"/>
+
+  <title> jenkins-ios-build | fatsoon的博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">fatsoon的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">肥起来吧</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                jenkins-ios-build
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-07T13:17:19+08:00" content="2016-07-07">
+              2016-07-07
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/07/jenkins-ios-build/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/07/jenkins-ios-build/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Mac系统中使用jenkins配合xcode插件进行iOS打包"><a href="#Mac系统中使用jenkins配合xcode插件进行iOS打包" class="headerlink" title="Mac系统中使用jenkins配合xcode插件进行iOS打包"></a>Mac系统中使用jenkins配合xcode插件进行iOS打包</h1><h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><h3 id="java环境"><a href="#java环境" class="headerlink" title="java环境"></a>java环境</h3><p>本文所使用的是Java 7，其它版本并没有进行验证，不保证会出现小问题。jdk请自行去oracle下载安装</p>
+<h3 id="Tomcat"><a href="#Tomcat" class="headerlink" title="Tomcat"></a>Tomcat</h3><p>Tomcat用来做jenkins的容器，本文使用的是Tomcat 7，其它版本没有进行验证。请在Apache Tomcat官网下载zip版</p>
+<h3 id="jenkins"><a href="#jenkins" class="headerlink" title="jenkins"></a>jenkins</h3><p>下载jenkins.war</p>
+<h3 id="苹果开发者证书和描述文件"><a href="#苹果开发者证书和描述文件" class="headerlink" title="苹果开发者证书和描述文件"></a>苹果开发者证书和描述文件</h3><p>把苹果开发者证书导入到<code>keychain</code>中，把描述文件(xxx.mobileprovision)双击安装到xcode中去</p>
+<h2 id="部署jenkins"><a href="#部署jenkins" class="headerlink" title="部署jenkins"></a>部署jenkins</h2><ul>
+<li>解压Tomcat</li>
+<li>将jenkins.war放到<code>Tomcat/webapps</code>中</li>
+<li>在<code>Tomcat/config/server.xml</code>中配置tomcat的端口，默认为<code>8080</code></li>
+<li>启动tomcat，执行<code>./Tomcat/bin/startup.sh</code></li>
+<li>网页中输入<code>localhost:8080/jenkins</code>即可访问jenkins主页</li>
+</ul>
+<h2 id="配置jenkins"><a href="#配置jenkins" class="headerlink" title="配置jenkins"></a>配置jenkins</h2><h3 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h3><p>在<code>系统管理</code>-<code>管理插件</code>-<code>可选插件</code>中搜索xcode，选择<code>Xcode integration</code>，点击<code>直接安装</code></p>
+<p><em>注意：如果<code>可选插件</code>列表为空，说明无法连接到jenkins插件中心。可在<code>高级</code>-<code>升级站点</code>中填写<code>http://mirror.xmission.com/jenkins/updates/update-center.json</code></em></p>
+<h2 id="创建xcode打包任务"><a href="#创建xcode打包任务" class="headerlink" title="创建xcode打包任务"></a>创建xcode打包任务</h2><h3 id="创建一个项目"><a href="#创建一个项目" class="headerlink" title="创建一个项目"></a>创建一个项目</h3><p><code>新建</code>-<code>构建一个自由风格的软件项目</code></p>
+<h3 id="配置项目"><a href="#配置项目" class="headerlink" title="配置项目"></a>配置项目</h3><h4 id="项目选项"><a href="#项目选项" class="headerlink" title="项目选项"></a>项目选项</h4><p><img src="/images/jenkins-ios-build-0.png" alt=""><br>勾选<code>丢弃旧的构建</code></p>
+<h4 id="源码管理"><a href="#源码管理" class="headerlink" title="源码管理"></a>源码管理</h4><p><img src="/images/jenkins-ios-build-1.png" alt=""><br>选择<code>Subversion</code></p>
+<h4 id="增加构建步骤"><a href="#增加构建步骤" class="headerlink" title="增加构建步骤"></a>增加构建步骤</h4><p>添加Xcode</p>
+<h4 id="Xcode构建配置"><a href="#Xcode构建配置" class="headerlink" title="Xcode构建配置"></a>Xcode构建配置</h4><h5 id="General-build-settings"><a href="#General-build-settings" class="headerlink" title="General build settings"></a>General build settings</h5><p><img src="/images/jenkins-ios-build-2.png" alt=""></p>
+<ul>
+<li><p><code>Target</code>填写要打包的Target</p>
+</li>
+<li><p><code>Configuration</code>填写Release或Debug或其它自定义的配置</p>
+</li>
+<li><p>勾选<code>Pack application and build .ipa?</code></p>
+</li>
+<li><p><code>.ipa filename pattern</code>填<code>projectname_${SHORT_VERSION}_${VERSION}_SVN${SVN_REVISION}</code></p>
+</li>
+<li><p><code>Output directory</code>填<code>/Users/xxx/jenkinsBuild/ios</code></p>
+</li>
+</ul>
+<h5 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h5><p><img src="/images/jenkins-ios-build-3.png" alt=""><br>其它均为默认配置</p>
+<h2 id="执行项目"><a href="#执行项目" class="headerlink" title="执行项目"></a>执行项目</h2><p>首次执行项目时，codesign会访问你的钥匙串，选择<code>永久允许</code>即可。</p>
+<p>好了，享受一键build吧</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag">#iOS</a>
+          
+            <a href="/tags/jenkins/" rel="tag">#jenkins</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/06/2016-07-06-jenkins-ios-build-mark/" rel="next" title="jenkins进行iOS自动化打包小记">
+                <i class="fa fa-chevron-left"></i> jenkins进行iOS自动化打包小记
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/07/11/android-commandline-tools/" rel="prev" title="使用命令行管理Android SDK">
+                使用命令行管理Android SDK <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/07/07/jenkins-ios-build/"
+           data-title="jenkins-ios-build" data-url="http://fatsoon.com/2016/07/07/jenkins-ios-build/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.png"
+               alt="fatsoon" />
+          <p class="site-author-name" itemprop="name">fatsoon</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">15</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fatsoon" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/fatsoonx" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/333890501" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Mac系统中使用jenkins配合xcode插件进行iOS打包"><span class="nav-number">1.</span> <span class="nav-text">Mac系统中使用jenkins配合xcode插件进行iOS打包</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#环境搭建"><span class="nav-number">1.1.</span> <span class="nav-text">环境搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#java环境"><span class="nav-number">1.1.1.</span> <span class="nav-text">java环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tomcat"><span class="nav-number">1.1.2.</span> <span class="nav-text">Tomcat</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jenkins"><span class="nav-number">1.1.3.</span> <span class="nav-text">jenkins</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#苹果开发者证书和描述文件"><span class="nav-number">1.1.4.</span> <span class="nav-text">苹果开发者证书和描述文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#部署jenkins"><span class="nav-number">1.2.</span> <span class="nav-text">部署jenkins</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置jenkins"><span class="nav-number">1.3.</span> <span class="nav-text">配置jenkins</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装插件"><span class="nav-number">1.3.1.</span> <span class="nav-text">安装插件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建xcode打包任务"><span class="nav-number">1.4.</span> <span class="nav-text">创建xcode打包任务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建一个项目"><span class="nav-number">1.4.1.</span> <span class="nav-text">创建一个项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置项目"><span class="nav-number">1.4.2.</span> <span class="nav-text">配置项目</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#项目选项"><span class="nav-number">1.4.2.1.</span> <span class="nav-text">项目选项</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#源码管理"><span class="nav-number">1.4.2.2.</span> <span class="nav-text">源码管理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#增加构建步骤"><span class="nav-number">1.4.2.3.</span> <span class="nav-text">增加构建步骤</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Xcode构建配置"><span class="nav-number">1.4.2.4.</span> <span class="nav-text">Xcode构建配置</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#General-build-settings"><span class="nav-number">1.4.2.4.1.</span> <span class="nav-text">General build settings</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#其它"><span class="nav-number">1.4.2.4.2.</span> <span class="nav-text">其它</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#执行项目"><span class="nav-number">1.5.</span> <span class="nav-text">执行项目</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2014 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">fatsoon</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"fatsoon"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,704 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="shadowsocks," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="fatsoon的博客" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="1、iOS上使用shadowsocks的方式1.1 shadowsocks-iOS AppStore下载         表面看来是个内置浏览器，此内置浏览器可以畅通无阻的上网。如果想让其它应用使用，需要打开iOS设置 -&amp;gt; 无线局域网 -&amp;gt; 已连接的WiFi右侧的i图标 -&amp;gt; HTTP代理 -&amp;gt; 选择自动。填写http://127.0.0.1:8090/proxy.pa">
+<meta name="keywords" content="shadowsocks">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PAC文件让iOS用上你的shadowsocks">
+<meta property="og:url" content="http://fatsoon.com/2015/06/02/2015-06-02-pac-file-for-ios/index.html">
+<meta property="og:site_name" content="fatsoon的博客">
+<meta property="og:description" content="1、iOS上使用shadowsocks的方式1.1 shadowsocks-iOS AppStore下载         表面看来是个内置浏览器，此内置浏览器可以畅通无阻的上网。如果想让其它应用使用，需要打开iOS设置 -&amp;gt; 无线局域网 -&amp;gt; 已连接的WiFi右侧的i图标 -&amp;gt; HTTP代理 -&amp;gt; 选择自动。填写http://127.0.0.1:8090/proxy.pa">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://camo.githubusercontent.com/32145ebda8f8af17efbc9e2f411d0995416d97ea/68747470733a2f2f7261772e6769746875622e636f6d2f736861646f77736f636b732f736861646f77736f636b732d694f532f6d61737465722f61707073746f72652e706e67">
+<meta property="og:updated_time" content="2018-01-11T14:45:46.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PAC文件让iOS用上你的shadowsocks">
+<meta name="twitter:description" content="1、iOS上使用shadowsocks的方式1.1 shadowsocks-iOS AppStore下载         表面看来是个内置浏览器，此内置浏览器可以畅通无阻的上网。如果想让其它应用使用，需要打开iOS设置 -&amp;gt; 无线局域网 -&amp;gt; 已连接的WiFi右侧的i图标 -&amp;gt; HTTP代理 -&amp;gt; 选择自动。填写http://127.0.0.1:8090/proxy.pa">
+<meta name="twitter:image" content="https://camo.githubusercontent.com/32145ebda8f8af17efbc9e2f411d0995416d97ea/68747470733a2f2f7261772e6769746875622e636f6d2f736861646f77736f636b732f736861646f77736f636b732d694f532f6d61737465722f61707073746f72652e706e67">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://fatsoon.com/2015/06/02/2015-06-02-pac-file-for-ios/"/>
+
+  <title> PAC文件让iOS用上你的shadowsocks | fatsoon的博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">fatsoon的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">肥起来吧</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                PAC文件让iOS用上你的shadowsocks
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-06-02T14:19:19+08:00" content="2015-06-02">
+              2015-06-02
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Internet/" itemprop="url" rel="index">
+                    <span itemprop="name">Internet</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/06/02/2015-06-02-pac-file-for-ios/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/06/02/2015-06-02-pac-file-for-ios/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="1、iOS上使用shadowsocks的方式"><a href="#1、iOS上使用shadowsocks的方式" class="headerlink" title="1、iOS上使用shadowsocks的方式"></a>1、iOS上使用shadowsocks的方式</h2><h4 id="1-1-shadowsocks-iOS"><a href="#1-1-shadowsocks-iOS" class="headerlink" title="1.1 shadowsocks-iOS"></a>1.1 shadowsocks-iOS</h4><ul>
+<li>AppStore下载        <a href="https://itunes.apple.com/us/app/shadowsocks/id665729974?ls=1&amp;mt=8" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/32145ebda8f8af17efbc9e2f411d0995416d97ea/68747470733a2f2f7261772e6769746875622e636f6d2f736861646f77736f636b732f736861646f77736f636b732d694f532f6d61737465722f61707073746f72652e706e67" alt=""></a></li>
+<li>表面看来是个内置浏览器，此内置浏览器可以畅通无阻的上网。如果想让其它应用使用，<br>需要打开iOS设置 -&gt; 无线局域网 -&gt; 已连接的WiFi右侧的<code>i</code>图标 -&gt; HTTP代理 -&gt; 选择<code>自动</code>。填写<code>http://127.0.0.1:8090/proxy.pac</code></li>
+<li>每隔几分钟，<code>shadowsocks-iOS</code>就会被系统终止，所以pac文件也就失效了，所以每隔几分钟就要重新打开一次<code>shadowsocks-iOS</code>，<br>略蛋疼，没办法，iOS为了安全和良好体验嘛。</li>
+</ul>
+<h4 id="1-2-自定义PAC文件"><a href="#1-2-自定义PAC文件" class="headerlink" title="1.2 自定义PAC文件"></a>1.2 自定义PAC文件</h4><ul>
+<li>PAC 文件用 JavaScript 编写，必须包含<code>FindProxyForURL(url, host)</code>函数。在访问某个网址时，<br>浏览器会调用<code>FindProxyForURL</code>根据其返回值来决定该如何访问。</li>
+<li>函数的说明参见<a href="http://chenyufei.info/blog/2012-03-18/pac-and-debug/" target="_blank" rel="noopener">PAC 文件及其调试</a></li>
+<li>把PAC文件写好后放在公网可访问的地方，并将地址填写到<code>HTTP代理</code>中，就可以做到用不断开连接。</li>
+</ul>
+<h2 id="2、自定义PAC文件连接shadowsocks"><a href="#2、自定义PAC文件连接shadowsocks" class="headerlink" title="2、自定义PAC文件连接shadowsocks"></a>2、自定义PAC文件连接shadowsocks</h2><h4 id="2-1-连接电脑上配置好的shadowsocks-client"><a href="#2-1-连接电脑上配置好的shadowsocks-client" class="headerlink" title="2.1 连接电脑上配置好的shadowsocks-client"></a>2.1 连接电脑上配置好的shadowsocks-client</h4><ul>
+<li>如果你手机和电脑在同一局域网，可以直接把配置好shadowsocks的电脑的ip地址和端口填写到PAC文件中。<br>缺点是换了网络环境后，ip地址会变，变了就要改PAC文件，略麻烦。</li>
+</ul>
+<h4 id="2-2-连接你的shadowsocks服务器"><a href="#2-2-连接你的shadowsocks服务器" class="headerlink" title="2.2 连接你的shadowsocks服务器"></a>2.2 连接你的shadowsocks服务器</h4><p>如果你有自己的shadowsocks服务器，那么你可以直接把服务器ip和端口写在PAC文件中，前提是服务器中要同时安装<code>ssserver</code>和<code>sslocal</code>，<br>并且把<code>sslocal</code>的配置文件中的<code>local_address</code>设为<code>0.0.0.0</code>，否则外网无法连接<code>sslocal</code>，</p>
+<p>具体服务器配置文件如下，仅供参考：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;server&quot;:&quot;0.0.0.0&quot;,</span><br><span class="line">    &quot;server_port&quot;:8388,</span><br><span class="line">    &quot;local_address&quot;: &quot;0.0.0.0&quot;,</span><br><span class="line">    &quot;local_port&quot;:1080,</span><br><span class="line">    &quot;password&quot;:&quot;mypassword&quot;,</span><br><span class="line">    &quot;timeout&quot;:300,</span><br><span class="line">    &quot;method&quot;:&quot;aes-256-cfb&quot;,</span><br><span class="line">    &quot;fast_open&quot;: false</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>PAC文件这样写：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  function FindProxyForURL(url, host) &#123;</span><br><span class="line">      //将ip和端口替换为&#123;你的服务器ip&#125;:&#123;上面的local_port&#125;</span><br><span class="line">      return &quot;SOCKS5 123.431.111.77:1080; SOCKS 123.431.111.77:1080&quot;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这样就实现了全局代理，如果想进行过滤，你需要做的就是研究<br><a href="http://findproxyforurl.com/pac-functions/" target="_blank" rel="noopener">PAC Functions</a>并自行过滤国内地址。</p>
+<h4 id="2-3-配好了PAC文件却连不上服务器？"><a href="#2-3-配好了PAC文件却连不上服务器？" class="headerlink" title="2.3 配好了PAC文件却连不上服务器？"></a>2.3 配好了PAC文件却连不上服务器？</h4><ol>
+<li>确保PAC文件可以访问</li>
+<li>确保服务器已经打开了’local_port’这个端口</li>
+<li>使用tennet验证’local_port’是否可访问<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">telnet 123.431.111.77 1080</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="3、参考内容"><a href="#3、参考内容" class="headerlink" title="3、参考内容"></a>3、参考内容</h2><ul>
+<li><a href="http://chenyufei.info/blog/2012-03-18/pac-and-debug/" target="_blank" rel="noopener">PAC 文件及其调试</a></li>
+<li><a href="https://github.com/shadowsocks/shadowsocks-iOS" target="_blank" rel="noopener">shadowsocks-iOS</a></li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/shadowsocks/" rel="tag">#shadowsocks</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/03/19/2015-03-19-android-alarmmanager/" rel="next" title="Android中使用AlarmManager执行定时任务">
+                <i class="fa fa-chevron-left"></i> Android中使用AlarmManager执行定时任务
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/07/06/2016-07-06-jenkins-ios-build-mark/" rel="prev" title="jenkins进行iOS自动化打包小记">
+                jenkins进行iOS自动化打包小记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2015/06/02/2015-06-02-pac-file-for-ios/"
+           data-title="PAC文件让iOS用上你的shadowsocks" data-url="http://fatsoon.com/2015/06/02/2015-06-02-pac-file-for-ios/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.png"
+               alt="fatsoon" />
+          <p class="site-author-name" itemprop="name">fatsoon</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">15</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fatsoon" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/fatsoonx" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/333890501" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、iOS上使用shadowsocks的方式"><span class="nav-number">1.</span> <span class="nav-text">1、iOS上使用shadowsocks的方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-shadowsocks-iOS"><span class="nav-number">1.0.1.</span> <span class="nav-text">1.1 shadowsocks-iOS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-自定义PAC文件"><span class="nav-number">1.0.2.</span> <span class="nav-text">1.2 自定义PAC文件</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、自定义PAC文件连接shadowsocks"><span class="nav-number">2.</span> <span class="nav-text">2、自定义PAC文件连接shadowsocks</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-连接电脑上配置好的shadowsocks-client"><span class="nav-number">2.0.1.</span> <span class="nav-text">2.1 连接电脑上配置好的shadowsocks-client</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-连接你的shadowsocks服务器"><span class="nav-number">2.0.2.</span> <span class="nav-text">2.2 连接你的shadowsocks服务器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-配好了PAC文件却连不上服务器？"><span class="nav-number">2.0.3.</span> <span class="nav-text">2.3 配好了PAC文件却连不上服务器？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3、参考内容"><span class="nav-number">3.</span> <span class="nav-text">3、参考内容</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2014 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">fatsoon</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"fatsoon"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

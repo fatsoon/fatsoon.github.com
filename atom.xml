@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>fatsoon的博客</title>
+  
+  <subtitle>肥起来吧</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://fatsoon.com/"/>
+  <updated>2018-01-11T14:45:46.000Z</updated>
+  <id>http://fatsoon.com/</id>
+  
+  <author>
+    <name>fatsoon</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>在Android中使用Chrome Customtabs</title>
+    <link href="http://fatsoon.com/2016/08/17/Use-Chrome-Customtabs-In-Android/"/>
+    <id>http://fatsoon.com/2016/08/17/Use-Chrome-Customtabs-In-Android/</id>
+    <published>2016-08-17T03:28:53.000Z</published>
+    <updated>2018-01-11T14:45:46.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><h3 id="发现"><a href="#发现" class="headerlink" title="发现"></a>发现</h3><p>使用Twitter时发现它的<code>webview</code>全都是用<code>chrome</code>打开的，而且是单独的一个tab，并且写着<code>由Chrome提供支持</code>，如图：<br><img src="/images/use-chrome-customtabs-in-android-0.png" alt=""></p><p>从Chrome官网了解到这个叫做<code>Chrome Custom Tabs</code>，它和Chrome App以及WebView的加载速度对比图如下：<br><img src="/images/use-chrome-customtabs-in-android-2.gif" alt=""></p><h2 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h2><p>首先需要在你的项目里添加<code>Custom Tabs Support Library</code>。打开<code>build.gradle</code>并在<code>dependency</code>中添加依赖库，<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line">    ...</span><br><span class="line">    compile &apos;com.android.support:customtabs:24.1.0&apos;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><h3 id="打开一个Chrome-Custom-Tab"><a href="#打开一个Chrome-Custom-Tab" class="headerlink" title="打开一个Chrome Custom Tab"></a>打开一个Chrome Custom Tab</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">String url = ¨https://paul.kinlan.me/¨;</span><br><span class="line">CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();</span><br><span class="line">CustomTabsIntent customTabsIntent = builder.build();</span><br><span class="line">customTabsIntent.launchUrl(this, Uri.parse(url));</span><br></pre></td></tr></table></figure><h3 id="设置Toolbar的颜色"><a href="#设置Toolbar的颜色" class="headerlink" title="设置Toolbar的颜色"></a>设置Toolbar的颜色</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">builder.setToolbarColor(colorInt);</span><br></pre></td></tr></table></figure><h3 id="更多用法请参考以下链接"><a href="#更多用法请参考以下链接" class="headerlink" title="更多用法请参考以下链接"></a>更多用法请参考以下链接</h3><ul><li><a href="https://developer.chrome.com/multidevice/android/customtabs" target="_blank" rel="noopener">Chrome Custom Tabs官网</a></li></ul><h2 id="适配"><a href="#适配" class="headerlink" title="适配"></a>适配</h2><p>试验后发现如果手机中没有安装Chrome浏览器是无法使用Chrome Custom Tab的，会跳转到自带浏览器，感觉这种体验是不太好的，所以应当检查是否已安装Chrome，如果没有安装Chrome，就要自己使用WebView打开了。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//检查是否安装Chrome</span><br><span class="line">String packageName = &quot;com.android.chrome&quot;;</span><br><span class="line">Intent browserIntent = new Intent();</span><br><span class="line">browserIntent.setPackage(packageName);</span><br><span class="line">List&lt;ResolveInfo&gt; activitiesList = getPackageManager().queryIntentActivities(</span><br><span class="line">        browserIntent, -1);</span><br><span class="line">if(activitiesList.size() &gt; 0) &#123;</span><br><span class="line">    // 使用Chrome Custom Tab打开</span><br><span class="line">    String url = &quot;https://paul.kinlan.me/&quot;;</span><br><span class="line">    CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();</span><br><span class="line">    builder.setToolbarColor(Color.RED);</span><br><span class="line">    CustomTabsIntent customTabsIntent = builder.build();</span><br><span class="line">    customTabsIntent.launchUrl(this, Uri.parse(url));</span><br><span class="line">&#125; else &#123;</span><br><span class="line">    //使用自定义的WebViewActivit打开</span><br><span class="line">    startActivity(new Intent(MainActivity.this,WebActivity.class));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;h3 id=&quot;发现&quot;&gt;&lt;a href=&quot;#发现&quot; class=&quot;headerlink&quot; title=&quot;发现&quot;&gt;&lt;/a&gt;发现&lt;/h3&gt;&lt;p&gt;使用T
+      
+    
+    </summary>
+    
+    
+      <category term="Android" scheme="http://fatsoon.com/tags/Android/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用命令行管理Android SDK</title>
+    <link href="http://fatsoon.com/2016/07/11/android-commandline-tools/"/>
+    <id>http://fatsoon.com/2016/07/11/android-commandline-tools/</id>
+    <published>2016-07-11T08:38:00.000Z</published>
+    <updated>2018-01-11T14:45:46.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="使用命令行管理Android-SDK"><a href="#使用命令行管理Android-SDK" class="headerlink" title="使用命令行管理Android SDK"></a>使用命令行管理Android SDK</h1><h2 id="查看索引"><a href="#查看索引" class="headerlink" title="查看索引"></a>查看索引</h2><p><code>android list sdk --all</code><br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Packages available for installation or update: 152</span><br><span class="line">   1- Android SDK Tools, revision 25.1.7</span><br><span class="line">   2- Android SDK Platform-tools, revision 24</span><br><span class="line">   3- Android SDK Build-tools, revision 24</span><br><span class="line">   4- Android SDK Build-tools, revision 23.0.3</span><br><span class="line">   5- Android SDK Build-tools, revision 23.0.2</span><br><span class="line">   6- Android SDK Build-tools, revision 23.0.1</span><br><span class="line">......</span><br><span class="line">  24- Android SDK Build-tools, revision 18.0.1 (Obsolete)</span><br><span class="line">  25- Android SDK Build-tools, revision 17 (Obsolete)</span><br><span class="line">  26- Documentation for Android SDK, API 23, revision 1</span><br><span class="line">  27- SDK Platform Android N, API 24, revision 1</span><br><span class="line">  28- SDK Platform Android 6.0, API 23, revision 3</span><br><span class="line">  29- SDK Platform Android 5.1.1, API 22, revision 2</span><br><span class="line">......</span><br><span class="line"> 135- Sources for Android SDK, API 15, revision 2</span><br><span class="line"> 136- Sources for Android SDK, API 14, revision 1 (Obsolete)</span><br><span class="line"> 137- GPU Debugging tools, revision 3.1</span><br><span class="line"> 138- GPU Debugging tools, revision 1.0.3</span><br><span class="line"> 139- Android Support Repository, revision 33</span><br><span class="line"> 140- Android Support Library, revision 23.2.1 (Obsolete)</span><br><span class="line">......</span><br><span class="line"> 150- Google Play Billing Library, revision 5</span><br><span class="line"> 151- Android Auto API Simulators, revision 1</span><br><span class="line"> 152- Google Web Driver, revision 2</span><br></pre></td></tr></table></figure></p><h2 id="安装指定序号"><a href="#安装指定序号" class="headerlink" title="安装指定序号"></a>安装指定序号</h2><p><code>android update sdk -u -a -t 1,2,3,4,..,n</code><br>各参数含义通过<code>android update sdk --help</code>查看</p><p>项目中的配置是<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">compileSdkVersion 23</span><br><span class="line">buildToolsVersion &quot;23.0.2&quot;</span><br></pre></td></tr></table></figure></p><p>按照1中的列表序号执行如下操作，序号可能有变化，请安实际情况填写序号<br><code>android update sdk -u -a -t 1,2,5,28,139,140</code></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;使用命令行管理Android-SDK&quot;&gt;&lt;a href=&quot;#使用命令行管理Android-SDK&quot; class=&quot;headerlink&quot; title=&quot;使用命令行管理Android SDK&quot;&gt;&lt;/a&gt;使用命令行管理Android SDK&lt;/h1&gt;&lt;h2 id=&quot;查
+      
+    
+    </summary>
+    
+    
+      <category term="Android" scheme="http://fatsoon.com/tags/Android/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>jenkins-ios-build</title>
+    <link href="http://fatsoon.com/2016/07/07/jenkins-ios-build/"/>
+    <id>http://fatsoon.com/2016/07/07/jenkins-ios-build/</id>
+    <published>2016-07-07T05:17:19.000Z</published>
+    <updated>2018-01-11T14:45:46.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Mac系统中使用jenkins配合xcode插件进行iOS打包"><a href="#Mac系统中使用jenkins配合xcode插件进行iOS打包" class="headerlink" title="Mac系统中使用jenkins配合xcode插件进行iOS打包"></a>Mac系统中使用jenkins配合xcode插件进行iOS打包</h1><h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><h3 id="java环境"><a href="#java环境" class="headerlink" title="java环境"></a>java环境</h3><p>本文所使用的是Java 7，其它版本并没有进行验证，不保证会出现小问题。jdk请自行去oracle下载安装</p><h3 id="Tomcat"><a href="#Tomcat" class="headerlink" title="Tomcat"></a>Tomcat</h3><p>Tomcat用来做jenkins的容器，本文使用的是Tomcat 7，其它版本没有进行验证。请在Apache Tomcat官网下载zip版</p><h3 id="jenkins"><a href="#jenkins" class="headerlink" title="jenkins"></a>jenkins</h3><p>下载jenkins.war</p><h3 id="苹果开发者证书和描述文件"><a href="#苹果开发者证书和描述文件" class="headerlink" title="苹果开发者证书和描述文件"></a>苹果开发者证书和描述文件</h3><p>把苹果开发者证书导入到<code>keychain</code>中，把描述文件(xxx.mobileprovision)双击安装到xcode中去</p><h2 id="部署jenkins"><a href="#部署jenkins" class="headerlink" title="部署jenkins"></a>部署jenkins</h2><ul><li>解压Tomcat</li><li>将jenkins.war放到<code>Tomcat/webapps</code>中</li><li>在<code>Tomcat/config/server.xml</code>中配置tomcat的端口，默认为<code>8080</code></li><li>启动tomcat，执行<code>./Tomcat/bin/startup.sh</code></li><li>网页中输入<code>localhost:8080/jenkins</code>即可访问jenkins主页</li></ul><h2 id="配置jenkins"><a href="#配置jenkins" class="headerlink" title="配置jenkins"></a>配置jenkins</h2><h3 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h3><p>在<code>系统管理</code>-<code>管理插件</code>-<code>可选插件</code>中搜索xcode，选择<code>Xcode integration</code>，点击<code>直接安装</code></p><p><em>注意：如果<code>可选插件</code>列表为空，说明无法连接到jenkins插件中心。可在<code>高级</code>-<code>升级站点</code>中填写<code>http://mirror.xmission.com/jenkins/updates/update-center.json</code></em></p><h2 id="创建xcode打包任务"><a href="#创建xcode打包任务" class="headerlink" title="创建xcode打包任务"></a>创建xcode打包任务</h2><h3 id="创建一个项目"><a href="#创建一个项目" class="headerlink" title="创建一个项目"></a>创建一个项目</h3><p><code>新建</code>-<code>构建一个自由风格的软件项目</code></p><h3 id="配置项目"><a href="#配置项目" class="headerlink" title="配置项目"></a>配置项目</h3><h4 id="项目选项"><a href="#项目选项" class="headerlink" title="项目选项"></a>项目选项</h4><p><img src="/images/jenkins-ios-build-0.png" alt=""><br>勾选<code>丢弃旧的构建</code></p><h4 id="源码管理"><a href="#源码管理" class="headerlink" title="源码管理"></a>源码管理</h4><p><img src="/images/jenkins-ios-build-1.png" alt=""><br>选择<code>Subversion</code></p><h4 id="增加构建步骤"><a href="#增加构建步骤" class="headerlink" title="增加构建步骤"></a>增加构建步骤</h4><p>添加Xcode</p><h4 id="Xcode构建配置"><a href="#Xcode构建配置" class="headerlink" title="Xcode构建配置"></a>Xcode构建配置</h4><h5 id="General-build-settings"><a href="#General-build-settings" class="headerlink" title="General build settings"></a>General build settings</h5><p><img src="/images/jenkins-ios-build-2.png" alt=""></p><ul><li><p><code>Target</code>填写要打包的Target</p></li><li><p><code>Configuration</code>填写Release或Debug或其它自定义的配置</p></li><li><p>勾选<code>Pack application and build .ipa?</code></p></li><li><p><code>.ipa filename pattern</code>填<code>projectname_${SHORT_VERSION}_${VERSION}_SVN${SVN_REVISION}</code></p></li><li><p><code>Output directory</code>填<code>/Users/xxx/jenkinsBuild/ios</code></p></li></ul><h5 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h5><p><img src="/images/jenkins-ios-build-3.png" alt=""><br>其它均为默认配置</p><h2 id="执行项目"><a href="#执行项目" class="headerlink" title="执行项目"></a>执行项目</h2><p>首次执行项目时，codesign会访问你的钥匙串，选择<code>永久允许</code>即可。</p><p>好了，享受一键build吧</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;Mac系统中使用jenkins配合xcode插件进行iOS打包&quot;&gt;&lt;a href=&quot;#Mac系统中使用jenkins配合xcode插件进行iOS打包&quot; class=&quot;headerlink&quot; title=&quot;Mac系统中使用jenkins配合xcode插件进行iOS打
+      
+    
+    </summary>
+    
+    
+      <category term="iOS" scheme="http://fatsoon.com/tags/iOS/"/>
+    
+      <category term="jenkins" scheme="http://fatsoon.com/tags/jenkins/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>jenkins进行iOS自动化打包小记</title>
+    <link href="http://fatsoon.com/2016/07/06/2016-07-06-jenkins-ios-build-mark/"/>
+    <id>http://fatsoon.com/2016/07/06/2016-07-06-jenkins-ios-build-mark/</id>
+    <published>2016-07-06T03:19:19.000Z</published>
+    <updated>2018-01-11T14:45:46.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>在使用jenkins进行iOS打包时遇到的问题，经过查阅资料解决，在此做个简单总结。</p><h2 id="jenkins-iOS的配置"><a href="#jenkins-iOS的配置" class="headerlink" title="jenkins+iOS的配置"></a>jenkins+iOS的配置</h2><p>详细步骤可参阅<code>夜空繁星-海</code>的<a href="http://blog.csdn.net/monkey_cool/article/details/43270885" target="_blank" rel="noopener">IOS使用jenkins进行持续集成2</a></p><h2 id="问题总结"><a href="#问题总结" class="headerlink" title="问题总结"></a>问题总结</h2><blockquote><p>Code Sign error: No matching provisioning profile found: Your build settings specify a provisioning profile with the UUID “efe1c26b-5b3f-45d5-ae1f-0cf42f9da974”, however, no such provisioning profile was found.</p></blockquote><p>出现这个问题的原因就是缺少证书和描述文件。</p><ol><li>jenkins不会读取当前用户下的keychain中的证书，所以需要把keychain中的证书复制到系统证书下面；</li><li>jenkins同样不会读取当前用户下的Provisioning Profiles，需要把当前用户的Provisioning Profiles复制到系统目录下<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo cp /Users/xxx/Library/MobileDevice /Library/MobileDevice</span><br></pre></td></tr></table></figure></li></ol><blockquote><p>[Warning: usage of –preserve-metadata with option “resource-rules” (deprecated in Mac OS X &gt;= 10.10)!<br>Warning: –resource-rules has been deprecated in Mac OS X &gt;= 10.10!<br>…<br>…<br>ResourceRules.plist: cannot read resources</p></blockquote><p>出现这个问题，一般是OS X 10.10以上系统，需要在<code>Custom xcodebuild arguments</code>中添加<code>CODE_SIGN_RESOURCE_RULES_PATH=$(SDKROOT)/ResourceRules.plist</code><br>如果<code>Custom xcodebuild arguments</code>中有多个变量，用英文空格分隔开</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;概述&quot;&gt;&lt;a href=&quot;#概述&quot; class=&quot;headerlink&quot; title=&quot;概述&quot;&gt;&lt;/a&gt;概述&lt;/h2&gt;&lt;p&gt;在使用jenkins进行iOS打包时遇到的问题，经过查阅资料解决，在此做个简单总结。&lt;/p&gt;
+&lt;h2 id=&quot;jenkins-iOS的配置&quot;
+      
+    
+    </summary>
+    
+      <category term="iOS" scheme="http://fatsoon.com/categories/iOS/"/>
+    
+    
+      <category term="iOS" scheme="http://fatsoon.com/tags/iOS/"/>
+    
+      <category term="jenkins" scheme="http://fatsoon.com/tags/jenkins/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>PAC文件让iOS用上你的shadowsocks</title>
+    <link href="http://fatsoon.com/2015/06/02/2015-06-02-pac-file-for-ios/"/>
+    <id>http://fatsoon.com/2015/06/02/2015-06-02-pac-file-for-ios/</id>
+    <published>2015-06-02T06:19:19.000Z</published>
+    <updated>2018-01-11T14:45:46.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="1、iOS上使用shadowsocks的方式"><a href="#1、iOS上使用shadowsocks的方式" class="headerlink" title="1、iOS上使用shadowsocks的方式"></a>1、iOS上使用shadowsocks的方式</h2><h4 id="1-1-shadowsocks-iOS"><a href="#1-1-shadowsocks-iOS" class="headerlink" title="1.1 shadowsocks-iOS"></a>1.1 shadowsocks-iOS</h4><ul><li>AppStore下载        <a href="https://itunes.apple.com/us/app/shadowsocks/id665729974?ls=1&amp;mt=8" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/32145ebda8f8af17efbc9e2f411d0995416d97ea/68747470733a2f2f7261772e6769746875622e636f6d2f736861646f77736f636b732f736861646f77736f636b732d694f532f6d61737465722f61707073746f72652e706e67" alt=""></a></li><li>表面看来是个内置浏览器，此内置浏览器可以畅通无阻的上网。如果想让其它应用使用，<br>需要打开iOS设置 -&gt; 无线局域网 -&gt; 已连接的WiFi右侧的<code>i</code>图标 -&gt; HTTP代理 -&gt; 选择<code>自动</code>。填写<code>http://127.0.0.1:8090/proxy.pac</code></li><li>每隔几分钟，<code>shadowsocks-iOS</code>就会被系统终止，所以pac文件也就失效了，所以每隔几分钟就要重新打开一次<code>shadowsocks-iOS</code>，<br>略蛋疼，没办法，iOS为了安全和良好体验嘛。</li></ul><h4 id="1-2-自定义PAC文件"><a href="#1-2-自定义PAC文件" class="headerlink" title="1.2 自定义PAC文件"></a>1.2 自定义PAC文件</h4><ul><li>PAC 文件用 JavaScript 编写，必须包含<code>FindProxyForURL(url, host)</code>函数。在访问某个网址时，<br>浏览器会调用<code>FindProxyForURL</code>根据其返回值来决定该如何访问。</li><li>函数的说明参见<a href="http://chenyufei.info/blog/2012-03-18/pac-and-debug/" target="_blank" rel="noopener">PAC 文件及其调试</a></li><li>把PAC文件写好后放在公网可访问的地方，并将地址填写到<code>HTTP代理</code>中，就可以做到用不断开连接。</li></ul><h2 id="2、自定义PAC文件连接shadowsocks"><a href="#2、自定义PAC文件连接shadowsocks" class="headerlink" title="2、自定义PAC文件连接shadowsocks"></a>2、自定义PAC文件连接shadowsocks</h2><h4 id="2-1-连接电脑上配置好的shadowsocks-client"><a href="#2-1-连接电脑上配置好的shadowsocks-client" class="headerlink" title="2.1 连接电脑上配置好的shadowsocks-client"></a>2.1 连接电脑上配置好的shadowsocks-client</h4><ul><li>如果你手机和电脑在同一局域网，可以直接把配置好shadowsocks的电脑的ip地址和端口填写到PAC文件中。<br>缺点是换了网络环境后，ip地址会变，变了就要改PAC文件，略麻烦。</li></ul><h4 id="2-2-连接你的shadowsocks服务器"><a href="#2-2-连接你的shadowsocks服务器" class="headerlink" title="2.2 连接你的shadowsocks服务器"></a>2.2 连接你的shadowsocks服务器</h4><p>如果你有自己的shadowsocks服务器，那么你可以直接把服务器ip和端口写在PAC文件中，前提是服务器中要同时安装<code>ssserver</code>和<code>sslocal</code>，<br>并且把<code>sslocal</code>的配置文件中的<code>local_address</code>设为<code>0.0.0.0</code>，否则外网无法连接<code>sslocal</code>，</p><p>具体服务器配置文件如下，仅供参考：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;server&quot;:&quot;0.0.0.0&quot;,</span><br><span class="line">    &quot;server_port&quot;:8388,</span><br><span class="line">    &quot;local_address&quot;: &quot;0.0.0.0&quot;,</span><br><span class="line">    &quot;local_port&quot;:1080,</span><br><span class="line">    &quot;password&quot;:&quot;mypassword&quot;,</span><br><span class="line">    &quot;timeout&quot;:300,</span><br><span class="line">    &quot;method&quot;:&quot;aes-256-cfb&quot;,</span><br><span class="line">    &quot;fast_open&quot;: false</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>PAC文件这样写：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  function FindProxyForURL(url, host) &#123;</span><br><span class="line">      //将ip和端口替换为&#123;你的服务器ip&#125;:&#123;上面的local_port&#125;</span><br><span class="line">      return &quot;SOCKS5 123.431.111.77:1080; SOCKS 123.431.111.77:1080&quot;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><p>这样就实现了全局代理，如果想进行过滤，你需要做的就是研究<br><a href="http://findproxyforurl.com/pac-functions/" target="_blank" rel="noopener">PAC Functions</a>并自行过滤国内地址。</p><h4 id="2-3-配好了PAC文件却连不上服务器？"><a href="#2-3-配好了PAC文件却连不上服务器？" class="headerlink" title="2.3 配好了PAC文件却连不上服务器？"></a>2.3 配好了PAC文件却连不上服务器？</h4><ol><li>确保PAC文件可以访问</li><li>确保服务器已经打开了’local_port’这个端口</li><li>使用tennet验证’local_port’是否可访问<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">telnet 123.431.111.77 1080</span><br></pre></td></tr></table></figure></li></ol><h2 id="3、参考内容"><a href="#3、参考内容" class="headerlink" title="3、参考内容"></a>3、参考内容</h2><ul><li><a href="http://chenyufei.info/blog/2012-03-18/pac-and-debug/" target="_blank" rel="noopener">PAC 文件及其调试</a></li><li><a href="https://github.com/shadowsocks/shadowsocks-iOS" target="_blank" rel="noopener">shadowsocks-iOS</a></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;1、iOS上使用shadowsocks的方式&quot;&gt;&lt;a href=&quot;#1、iOS上使用shadowsocks的方式&quot; class=&quot;headerlink&quot; title=&quot;1、iOS上使用shadowsocks的方式&quot;&gt;&lt;/a&gt;1、iOS上使用shadowsocks的
+      
+    
+    </summary>
+    
+      <category term="Internet" scheme="http://fatsoon.com/categories/Internet/"/>
+    
+    
+      <category term="shadowsocks" scheme="http://fatsoon.com/tags/shadowsocks/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Android中使用AlarmManager执行定时任务</title>
+    <link href="http://fatsoon.com/2015/03/19/2015-03-19-android-alarmmanager/"/>
+    <id>http://fatsoon.com/2015/03/19/2015-03-19-android-alarmmanager/</id>
+    <published>2015-03-19T02:19:19.000Z</published>
+    <updated>2018-01-11T14:45:46.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="1-概述"><a href="#1-概述" class="headerlink" title="1. 概述"></a>1. 概述</h2><p>当你的应用需要使用类似闹钟功能的时候，可以用AlarmManager来实现。</p><h2 id="2-原理"><a href="#2-原理" class="headerlink" title="2. 原理"></a>2. 原理</h2><p> AlarmManager是系统的闹铃管理器，可以给它添加或删除一个闹铃，并给这个闹铃提供一个广播接收器，<br>当时间到达的时候，它就会给那个广播接收器发送广播，我们就可以在广播接收器的<code>onReceive</code>方法中<br>做自己的事情。</p><h2 id="3-代码演示"><a href="#3-代码演示" class="headerlink" title="3. 代码演示"></a>3. 代码演示</h2><h3 id="创建一个广播接收器："><a href="#创建一个广播接收器：" class="headerlink" title="创建一个广播接收器："></a>创建一个广播接收器：</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * Created by fanshuo on 15/3/18.</span><br><span class="line"> */</span><br><span class="line">public class MyAlarmReceiver extends BroadcastReceiver&#123;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void onReceive(Context context, Intent intent) &#123;</span><br><span class="line">        System.out.println(&quot;MyAlarmReceiver...&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="添加一个定时提醒"><a href="#添加一个定时提醒" class="headerlink" title="添加一个定时提醒"></a>添加一个定时提醒</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);</span><br><span class="line">Intent intent = new Intent(context, MyAlarmReceiver.class);</span><br><span class="line">PendingIntent sender = PendingIntent.getBroadcast(context,</span><br><span class="line">                  1, intent, PendingIntent.FLAG_UPDATE_CURRENT);</span><br><span class="line">Calendar calendar = Calendar.getInstance();</span><br><span class="line">calendar.set(Calendar.HOUR_OF_DAY, 8);</span><br><span class="line">calendar.set(Calendar.MINUTE, 15);</span><br><span class="line">calendar.set(Calendar.SECOND, 0);</span><br><span class="line">calendar.set(Calendar.MILLISECOND, 0);</span><br><span class="line"></span><br><span class="line">long triggerTime = calendar.getTimeInMillis();</span><br><span class="line">am.setRepeating(AlarmManager.RTC_WAKEUP, triggerTime,</span><br><span class="line">                  INTERVAL, sender);</span><br></pre></td></tr></table></figure><p>setRepeating方法有四个参数，含义如下：</p><ul><li><p>type:闹钟类型，有四个可选值</p><ul><li>ELAPSED_REALTIME：以手机开机的时间为基准</li><li>ELAPSED_REALTIME_WAKEUP：以手机开机的时间为基准，并且可以在休眠时发出广播</li><li>RTC：以UTC标准时间为基准</li><li>RTC_WAKEUP：以UTC标准时间为基准，并且可以在休眠时发出广播</li></ul></li><li><p>triggerAtTime：第一次启动的时间，单位是毫秒。如果当前时间超过了triggerTime，就会立即启动这个定时提醒。此时应该设置为triggerTime + INTERVAL，<br>即：首次启动时间 + 循环间隔时间，也就是从下个循环开始启动。</p><ul><li>如果type是前两种，就需要提前算好开机后多久启动，如果超过了设定的时间会立即启动；</li><li>如果type是后两种，需要设置一个标准时间的毫秒数。</li></ul></li><li><p>interval：循环启动的间隔时间，单位是毫秒。也就是第一次启动之后，每隔多长时间启动一次。</p></li><li><p>operation：一个PendingIntent对象。这里用来封装BroadcastReceiver。</p></li></ul><h3 id="删除一个定时提醒"><a href="#删除一个定时提醒" class="headerlink" title="删除一个定时提醒"></a>删除一个定时提醒</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Intent intent = new Intent(context, MyAlarmReceiver.class);</span><br><span class="line">PendingIntent sender = PendingIntent.getBroadcast(context,</span><br><span class="line">        1, intent, PendingIntent.FLAG_CANCEL_CURRENT);//第二个参数必须和创建时的保持一致</span><br><span class="line">AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);</span><br><span class="line">am.cancel(sender);</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;1-概述&quot;&gt;&lt;a href=&quot;#1-概述&quot; class=&quot;headerlink&quot; title=&quot;1. 概述&quot;&gt;&lt;/a&gt;1. 概述&lt;/h2&gt;&lt;p&gt;当你的应用需要使用类似闹钟功能的时候，可以用AlarmManager来实现。&lt;/p&gt;
+&lt;h2 id=&quot;2-原理&quot;&gt;&lt;a 
+      
+    
+    </summary>
+    
+      <category term="Android" scheme="http://fatsoon.com/categories/Android/"/>
+    
+    
+      <category term="Android" scheme="http://fatsoon.com/tags/Android/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ubuntu上使用shadowsocks + polipo配置socks5和http代理</title>
+    <link href="http://fatsoon.com/2015/02/11/2015-02-11-shadowsocks-polipo/"/>
+    <id>http://fatsoon.com/2015/02/11/2015-02-11-shadowsocks-polipo/</id>
+    <published>2015-02-10T23:19:19.000Z</published>
+    <updated>2018-01-11T14:45:46.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="shadowsocks"><a href="#shadowsocks" class="headerlink" title="shadowsocks"></a>shadowsocks</h2><p>安装shadowsocks</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">apt-get install python-pip</span><br><span class="line">pip install shadowsocks</span><br></pre></td></tr></table></figure><p>创建配置文件，ubuntu14.04以上可以使用fast_open</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;server&quot;:&quot;my_server_ip&quot;,</span><br><span class="line">    &quot;server_port&quot;:8388,</span><br><span class="line">    &quot;local_address&quot;: &quot;127.0.0.1&quot;,</span><br><span class="line">    &quot;local_port&quot;:1080,</span><br><span class="line">    &quot;password&quot;:&quot;mypassword&quot;,</span><br><span class="line">    &quot;timeout&quot;:300,</span><br><span class="line">    &quot;method&quot;:&quot;aes-256-cfb&quot;,</span><br><span class="line">    &quot;fast_open&quot;: false</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>启动shadowsocks服务器端，<a href="https://github.com/shadowsocks/shadowsocks/wiki/Configuration-via-Config-File" target="_blank" rel="noopener">shadowsocks最新版现在已经支持后台运行</a></p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ssserver -c /etc/shadowsocks.json -d start</span><br></pre></td></tr></table></figure><p>启动shadowsocks客户端，这里需要指定一个pid file和log file 否则会和ssserver的冲突</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sslocal -c /etc/shadowsocks.json -d start --pid-file /tmp/sslocal.pid --log-file /tmp/sslocal.log</span><br></pre></td></tr></table></figure><h2 id="polipo"><a href="#polipo" class="headerlink" title="polipo"></a>polipo</h2><p>安装polipo</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">apt-get install polipo</span><br></pre></td></tr></table></figure><p>修改配置文件<code>/etc/polipo/config</code></p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">proxyAddress = &quot;0.0.0.0&quot;</span><br><span class="line"></span><br><span class="line">socksParentProxy = &quot;127.0.0.1:1080&quot;</span><br><span class="line">socksProxyType = socks5</span><br><span class="line"></span><br><span class="line">chunkHighMark = 50331648</span><br><span class="line">objectHighMark = 16384</span><br><span class="line"></span><br><span class="line">serverMaxSlots = 64</span><br><span class="line">serverSlots = 16</span><br><span class="line">serverSlots1 = 32</span><br></pre></td></tr></table></figure><p>重启polipo：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">/etc/init.d/polipo restart</span><br></pre></td></tr></table></figure><p>验证是否正常工作：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">export http_proxy=&quot;http://127.0.0.1:8123/&quot;</span><br><span class="line">curl ifconfig.me</span><br></pre></td></tr></table></figure><p>如果正常，会打印出vps的地址</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;shadowsocks&quot;&gt;&lt;a href=&quot;#shadowsocks&quot; class=&quot;headerlink&quot; title=&quot;shadowsocks&quot;&gt;&lt;/a&gt;shadowsocks&lt;/h2&gt;&lt;p&gt;安装shadowsocks&lt;/p&gt;
+&lt;figure class=&quot;h
+      
+    
+    </summary>
+    
+      <category term="Other" scheme="http://fatsoon.com/categories/Other/"/>
+    
+    
+      <category term="shadowsocks" scheme="http://fatsoon.com/tags/shadowsocks/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用AppCompat库适配Material Design</title>
+    <link href="http://fatsoon.com/2015/02/09/2015-02-09-material-design-compat/"/>
+    <id>http://fatsoon.com/2015/02/09/2015-02-09-material-design-compat/</id>
+    <published>2015-02-09T11:49:34.000Z</published>
+    <updated>2018-01-11T14:45:46.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>Material Design出来很长时间了，你的App为它做适配了吗，其实很简单。</p><h3 id="需要用到的库"><a href="#需要用到的库" class="headerlink" title="需要用到的库"></a>需要用到的库</h3><ul><li>com.android.support:appcompat-v7</li></ul><h3 id="操作步骤"><a href="#操作步骤" class="headerlink" title="操作步骤"></a>操作步骤</h3><h4 id="1、创建一个主题样式"><a href="#1、创建一个主题样式" class="headerlink" title="1、创建一个主题样式"></a>1、创建一个主题样式</h4><p>首先定义一个主题名称，然后从<code>Theme.AppCompat</code>继承，<br>然后修改它的三个颜色属性，请看代码：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;resources&gt;</span><br><span class="line">  &lt;!-- 从Theme.AppCompat继承 --&gt;</span><br><span class="line">  &lt;style name=&quot;AppTheme&quot; parent=&quot;Theme.AppCompat&quot;&gt;</span><br><span class="line">    &lt;!-- 设置颜色--&gt;</span><br><span class="line">    &lt;!--  ActionBar会取这个颜色 --&gt;</span><br><span class="line">    &lt;item name=&quot;colorPrimary&quot;&gt;@color/primary&lt;/item&gt;</span><br><span class="line">    &lt;!--   状态栏会取这个颜色 --&gt;</span><br><span class="line">    &lt;item name=&quot;colorPrimaryDark&quot;&gt;@color/primary_dark&lt;/item&gt;</span><br><span class="line">    &lt;!--   单选按钮、输入框等UI控件会取这个颜色 --&gt;</span><br><span class="line">    &lt;item name=&quot;colorAccent&quot;&gt;@color/accent&lt;/item&gt;</span><br><span class="line">  &lt;/style&gt;</span><br><span class="line">&lt;/resources&gt;</span><br></pre></td></tr></table></figure><h4 id="2、替换应用的主题"><a href="#2、替换应用的主题" class="headerlink" title="2、替换应用的主题"></a>2、替换应用的主题</h4><p>如果你原来使用的自定义主题，需要把<code>parent</code>设置成<code>AppTheme</code>，<br>如果没有使用自定义主题，请直接使用<code>AppTheme</code>主题。</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;application</span><br><span class="line">        android:icon=&quot;@drawable/ic_launcher&quot;</span><br><span class="line">        android:label=&quot;@string/app_name&quot;</span><br><span class="line">        android:theme=&quot;@style/AppTheme&quot; &gt;</span><br><span class="line"></span><br><span class="line">  ......</span><br><span class="line"></span><br><span class="line">&lt;/application&gt;</span><br></pre></td></tr></table></figure><h4 id="3、其它"><a href="#3、其它" class="headerlink" title="3、其它"></a>3、其它</h4><p>其它的点击效果和特性appcompat会为你做啦。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;Material Design出来很长时间了，你的App为它做适配了吗，其实很简单。&lt;/p&gt;
+&lt;h3 id=&quot;需要用到的库&quot;&gt;&lt;a href=&quot;#需要用到的库&quot; class=&quot;headerlink&quot; title=&quot;需要用到的库&quot;&gt;&lt;/a&gt;需要用到的库&lt;/h3&gt;&lt;ul&gt;
+&lt;l
+      
+    
+    </summary>
+    
+      <category term="Android" scheme="http://fatsoon.com/categories/Android/"/>
+    
+    
+      <category term="Android" scheme="http://fatsoon.com/tags/Android/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Android中的clipToPadding（给ScrollView加padding）</title>
+    <link href="http://fatsoon.com/2015/01/21/2015-01-21-clip-to-padding/"/>
+    <id>http://fatsoon.com/2015/01/21/2015-01-21-clip-to-padding/</id>
+    <published>2015-01-20T16:49:34.000Z</published>
+    <updated>2018-01-11T14:45:46.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>今天想要实现这样的效果，给<code>ScrollView</code>加<code>paddingTop</code>，并且滑动的时候能滑动到<code>paddingTop</code>所占的区域,<br>发现直接设置<code>paddingTop</code>是不行的，滑动的时候，内容部分会被<code>paddingTop</code>盖住，需要加这样的属性，<br><code>android:clipToPadding=&quot;false&quot;</code></p><h3 id="XML代码"><a href="#XML代码" class="headerlink" title="XML代码"></a>XML代码</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;ScrollView</span><br><span class="line">  android:id=&quot;@+id/scrollview&quot;</span><br><span class="line">  android:layout_width=&quot;match_parent&quot;</span><br><span class="line">  android:layout_height=&quot;match_parent&quot;</span><br><span class="line">  android:clipToPadding=&quot;false&quot;</span><br><span class="line">  android:paddingTop=&quot;180dp&quot;</span><br><span class="line">  android:scrollbarSize=&quot;2.0dp&quot;</span><br><span class="line">  android:scrollbarThumbVertical=&quot;@drawable/scrollbar_detail&quot;&gt;</span><br><span class="line">&lt;/ScrollView&gt;</span><br></pre></td></tr></table></figure><h3 id="ScrollView充满真个屏幕，上面是padding"><a href="#ScrollView充满真个屏幕，上面是padding" class="headerlink" title="ScrollView充满真个屏幕，上面是padding"></a>ScrollView充满真个屏幕，上面是padding</h3><p><img src="/images/QQ20150121-2@2x.jpg" alt="滑动前"></p><h3 id="滑动后可覆盖padding区域"><a href="#滑动后可覆盖padding区域" class="headerlink" title="滑动后可覆盖padding区域"></a>滑动后可覆盖padding区域</h3><p><img src="/images/QQ20150121-1@2x.jpg" alt="滑动后"></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;今天想要实现这样的效果，给&lt;code&gt;ScrollView&lt;/code&gt;加&lt;code&gt;paddingTop&lt;/code&gt;，并且滑动的时候能滑动到&lt;code&gt;paddingTop&lt;/code&gt;所占的区域,&lt;br&gt;发现直接设置&lt;code&gt;paddingTop&lt;/code&gt;是不行
+      
+    
+    </summary>
+    
+      <category term="Android" scheme="http://fatsoon.com/categories/Android/"/>
+    
+    
+      <category term="Android" scheme="http://fatsoon.com/tags/Android/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Android版微信SDK混淆问题（万恶的al.class）</title>
+    <link href="http://fatsoon.com/2015/01/14/2015-01-14-weixin-proguard/"/>
+    <id>http://fatsoon.com/2015/01/14/2015-01-14-weixin-proguard/</id>
+    <published>2015-01-14T06:57:00.000Z</published>
+    <updated>2018-01-11T14:45:46.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>微信新版Android SDK在混淆打包时报错，</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(Can&apos;t process class [com/tencent/wxop/stat/al.class] (Unknown verification type [95] in stack map frame))</span><br></pre></td></tr></table></figure><h4 id="首先查到的是vase同学的文章"><a href="#首先查到的是vase同学的文章" class="headerlink" title="首先查到的是vase同学的文章"></a>首先查到的是<a href="http://vase.iteye.com/blog/2171056" target="_blank" rel="noopener">vase同学的文章</a></h4><blockquote><p>APP集成了微信分享功能，但是打包时出现错误，仔细检查了proguard配置，感觉配置正确，深表微信sdk自身问题；跑官方找反馈链接未果，只好自己上网查。<br> ProGuard官网bug反馈中有记载同类<a href="http://sourceforge.net/p/proguard/bugs/420/" target="_blank" rel="noopener">错误</a>，有人给出解决方案，将ClassConstants.java中StackMapTable属性改为dummy，重新编译即可。<br> 另外在CSDN上发现有好心人前几天已遇到类似问题，并已将ProGuard编译好，那我们就省事了，拿来直接用好了。经测试可用，感谢<a href="http://blog.csdn.net/jiguangcanhen/article/details/41806599" target="_blank" rel="noopener">Gavin_Mirror同学的无私奉献</a>！</p></blockquote><p>从vase同学那里下载了jar包后发现会报这个错误<code>java.lang.UnsupportedClassVersionError: proguard/ant/ProGuardTask : Unsupported major.minor version 51.0</code>，<br>搜索以后怀疑是jdk版本的问题，有可能是上面那位同学使用jdk7打包，而我的打包环境是jdk6，所以马上去更新jdk版本，然后就成功了。</p><p>解决问题的关键就是：使用4-11版本的已修改<code>ATTR_StackMapTable = &quot;dummy&quot;;</code>的proguard.jar，并且保证打包环境的jdk是最新版本的。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;微信新版Android SDK在混淆打包时报错，&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;(Can&amp;apos;t process clas
+      
+    
+    </summary>
+    
+      <category term="Android" scheme="http://fatsoon.com/categories/Android/"/>
+    
+    
+      <category term="微信sdk" scheme="http://fatsoon.com/tags/%E5%BE%AE%E4%BF%A1sdk/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>从Ghost转移到Jekyll</title>
+    <link href="http://fatsoon.com/2015/01/13/2015-01-13-welcome-to-jekyll/"/>
+    <id>http://fatsoon.com/2015/01/13/2015-01-13-welcome-to-jekyll/</id>
+    <published>2015-01-13T07:20:34.000Z</published>
+    <updated>2018-01-11T14:45:46.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>博客从最开始的CSDN，再到Ghost，再到Jekyll，为什么呢？Ghost总感觉不是自己的，受制于他人，虽然开源，但是还是喜欢Jekyll这种书写方式，<br>目前样式比较simple，慢慢来嘛。</p><blockquote><p>来吧Jekyll，再战十年！</p></blockquote>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;博客从最开始的CSDN，再到Ghost，再到Jekyll，为什么呢？Ghost总感觉不是自己的，受制于他人，虽然开源，但是还是喜欢Jekyll这种书写方式，&lt;br&gt;目前样式比较simple，慢慢来嘛。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;来吧Jekyll，再战十年！&lt;/
+      
+    
+    </summary>
+    
+      <category term="other" scheme="http://fatsoon.com/categories/other/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>使用rsync转移VPS</title>
+    <link href="http://fatsoon.com/2014/12/19/2014-12-19-change-vps/"/>
+    <id>http://fatsoon.com/2014/12/19/2014-12-19-change-vps/</id>
+    <published>2014-12-19T14:10:34.000Z</published>
+    <updated>2018-01-11T14:45:46.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>现已成功将本博客从<a href="http://digitalocean.com" target="_blank" rel="noopener">DigitalOcean</a>转移到<a href="https://bandwagonhost.com/" target="_blank" rel="noopener">bandwagonhost</a></p><p>原因：</p><ul><li>DigitalOcean的速度感觉越来越慢</li><li>bandwagonhost便宜，9.9美元/年，5G、128M RAM、500G带宽</li></ul><p>使用的是linux中的rsync命令。</p><p>举个栗子：</p><blockquote><p>rsync -vzrtopg –progress -e ssh –delete /etc/supervisor/* /etc/supervisor</p></blockquote>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;现已成功将本博客从&lt;a href=&quot;http://digitalocean.com&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;DigitalOcean&lt;/a&gt;转移到&lt;a href=&quot;https://bandwagonhost.com/&quot; target=
+      
+    
+    </summary>
+    
+      <category term="Internet" scheme="http://fatsoon.com/categories/Internet/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>新浪微博封杀的API</title>
+    <link href="http://fatsoon.com/2014/08/02/2014-08-02-sinaweibo-api/"/>
+    <id>http://fatsoon.com/2014/08/02/2014-08-02-sinaweibo-api/</id>
+    <published>2014-08-02T14:20:34.000Z</published>
+    <updated>2018-01-11T14:45:46.000Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="最近调用新浪微博API时发现一些接口并没有按照文档说明进行返回数据，而是被加了限制，文档中没有做出说明。"><a href="#最近调用新浪微博API时发现一些接口并没有按照文档说明进行返回数据，而是被加了限制，文档中没有做出说明。" class="headerlink" title="最近调用新浪微博API时发现一些接口并没有按照文档说明进行返回数据，而是被加了限制，文档中没有做出说明。"></a>最近调用新浪微博API时发现一些接口并没有按照文档说明进行返回数据，而是被加了限制，文档中没有做出说明。</h4><ul><li>friendships/friends<blockquote><p>新浪的通知：“为进一步保护用户数据，即日起微博开放平台将对用户关系读取类接口进行升级，各接口最多返回指定用户关注数/粉丝数30%的数据。本次调整涉及所有获取粉丝或粉丝id、关注列表或关注id列表接口。”</p></blockquote></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h4 id=&quot;最近调用新浪微博API时发现一些接口并没有按照文档说明进行返回数据，而是被加了限制，文档中没有做出说明。&quot;&gt;&lt;a href=&quot;#最近调用新浪微博API时发现一些接口并没有按照文档说明进行返回数据，而是被加了限制，文档中没有做出说明。&quot; class=&quot;headerl
+      
+    
+    </summary>
+    
+      <category term="Internet" scheme="http://fatsoon.com/categories/Internet/"/>
+    
+    
+      <category term="微博sdk" scheme="http://fatsoon.com/tags/%E5%BE%AE%E5%8D%9Asdk/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>MonkeyRunner使用入门</title>
+    <link href="http://fatsoon.com/2014/07/27/2014-07-27-use-monkey-runner/"/>
+    <id>http://fatsoon.com/2014/07/27/2014-07-27-use-monkey-runner/</id>
+    <published>2014-07-27T15:20:00.000Z</published>
+    <updated>2018-01-11T14:45:46.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="http://developer.android.com/tools/help/monkeyrunner_concepts.html" target="_blank" rel="noopener">monkeyrunner</a>是Android SDK中的一个命令（<code>./sdk根目录/tools</code>），它可以执行事先编写好的Python脚本向手机发送操作指令。</p><h4 id="monkeyrunner提供以下三个类来进行手机指令的相关操作："><a href="#monkeyrunner提供以下三个类来进行手机指令的相关操作：" class="headerlink" title="monkeyrunner提供以下三个类来进行手机指令的相关操作："></a>monkeyrunner提供以下三个类来进行手机指令的相关操作：</h4><ul><li><p><a href="http://developer.android.com/tools/help/MonkeyDevice.html" target="_blank" rel="noopener">MonkeyDivice</a></p></li><li><p><a href="http://developer.android.com/tools/help/MonkeyImage.html" target="_blank" rel="noopener">MonkeyImage</a></p></li><li><p><a href="http://developer.android.com/tools/help/MonkeyRunner.html" target="_blank" rel="noopener">MonkeyRunner</a></p></li></ul><hr><h4 id="MonkeyDivice"><a href="#MonkeyDivice" class="headerlink" title="MonkeyDivice"></a>MonkeyDivice</h4><p>主要负责向手机发送指令</p><h4 id="MonkeyImage"><a href="#MonkeyImage" class="headerlink" title="MonkeyImage"></a>MonkeyImage</h4><p>可以进行截屏，并比较两幅截图的相似度。</p><h4 id="MonkeyRunner"><a href="#MonkeyRunner" class="headerlink" title="MonkeyRunner"></a>MonkeyRunner</h4><p>控制本次测试任务</p><h4 id="简单Demo-test-py-如下："><a href="#简单Demo-test-py-如下：" class="headerlink" title="简单Demo(test.py)如下："></a>简单Demo(test.py)如下：</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">#coding=utf-8</span></span><br><span class="line"><span class="keyword">from</span> com.android.monkeyrunner <span class="keyword">import</span> MonkeyRunner,MonkeyDevice,MonkeyImage</span><br><span class="line"></span><br><span class="line"><span class="comment">#等待手机连接</span></span><br><span class="line">device = MonkeyRunner.waitForConnection()</span><br><span class="line">MonkeyRunner.sleep(<span class="number">1</span>)</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#coding=utf-8</span><br><span class="line">from com.android.monkeyrunner import MonkeyRunner,MonkeyDevice,MonkeyImage</span><br><span class="line"></span><br><span class="line">#等待手机连接</span><br><span class="line">device = MonkeyRunner.waitForConnection()</span><br><span class="line">MonkeyRunner.sleep(1)</span><br><span class="line"></span><br><span class="line">#运行程序的次数</span><br><span class="line">count = 0</span><br><span class="line"></span><br><span class="line">while True:</span><br><span class="line">  count += 1</span><br><span class="line">  #启动待测程序的主activity</span><br><span class="line">  device.startActivity(component=&apos;com.fatsoon.android.demo/com.fatsoon.android.demo.WelcomeActivity&apos;)</span><br><span class="line">  #打印循环的次数</span><br><span class="line">  print(&quot;count = &quot; + str(count))</span><br><span class="line">  #等待10秒</span><br><span class="line">  MonkeyRunner.sleep(10)</span><br><span class="line">  #开始发送指令，按下返回键并松开</span><br><span class="line">  device.press(&apos;KEYCODE_BACK &apos;,&apos;DOWN_AND_UP&apos;)</span><br><span class="line">  MonkeyRunner.sleep(1)</span><br></pre></td></tr></table></figure><h4 id="运行这个脚本："><a href="#运行这个脚本：" class="headerlink" title="运行这个脚本："></a>运行这个脚本：</h4><p>  进入<code>sdk根目录/tools</code>目录，在此目录创建上面的<code>test.py</code>，然后在此目录打开终端或命令行，执行<code>monkeyrunner test.py</code>就可以了，例如windows下可以这样执行：</p><p>  <code>D:\adt-bundle-windows-x86_64-20140321\sdk\tools&gt;monkeyrunner test.py</code></p><p>  如有错误，欢迎指正。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;&lt;a href=&quot;http://developer.android.com/tools/help/monkeyrunner_concepts.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;monkeyrunner&lt;/a&gt;是Android SDK中
+      
+    
+    </summary>
+    
+      <category term="Python" scheme="http://fatsoon.com/categories/Python/"/>
+    
+    
+      <category term="MonkeyRunner" scheme="http://fatsoon.com/tags/MonkeyRunner/"/>
+    
+      <category term="Android" scheme="http://fatsoon.com/tags/Android/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Django中使用markdown和代码高亮</title>
+    <link href="http://fatsoon.com/2014/07/26/2014-07-26-use-highlite-in-django/"/>
+    <id>http://fatsoon.com/2014/07/26/2014-07-26-use-highlite-in-django/</id>
+    <published>2014-07-26T07:20:34.000Z</published>
+    <updated>2018-01-11T14:45:46.000Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="markdown库简介"><a href="#markdown库简介" class="headerlink" title="markdown库简介"></a>markdown库简介</h3><p>Python的markdown库流行的有两个，<a href="https://github.com/waylan/Python-Markdown" target="_blank" rel="noopener">python-markdown</a>和<a href="https://github.com/trentm/python-markdown2" target="_blank" rel="noopener">python-markdown2</a>，看名字可以猜出来markdown2要比markdown新，是的，而且Github上的star数量也是markdown2比较多。还有一个重要问题就是，<strong>markdown不支持三个反引号包裹的代码块</strong>，想要书写代码块，只能缩进一个Tab或者四个空格，非常不方便，所以，我推荐使用python-markdown2。至于这两个哪个更快，我没有做专门测试，但markdown2作者说自己更快，谁知道呢，需要自己做一个详细测试。</p><h4 id="python-markdown"><a href="#python-markdown" class="headerlink" title="python-markdown"></a>python-markdown</h4><p>首先需要安装python-markdown库，</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pip install markdown</span><br></pre></td></tr></table></figure><p>在你的代码中这样使用：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import markdown</span><br><span class="line">md = markdown.Markdown()</span><br><span class="line">html = md.convert(&quot;# 一级标题&quot;)</span><br></pre></td></tr></table></figure><h4 id="python-markdown2"><a href="#python-markdown2" class="headerlink" title="python-markdown2"></a>python-markdown2</h4><p>首先需要安装python-markdown2库，</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pip install markdown2</span><br></pre></td></tr></table></figure><p>在你的代码中这样使用：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import markdown2</span><br><span class="line">html = markdown2.markdown(&quot;# 一级标题&quot;)</span><br></pre></td></tr></table></figure><p>这时候如果插入代码块，是没有高亮效果的，怎么样才能得到高亮效果呢？请继续看下面。</p><hr><h3 id="用Pygments美化你的代码块"><a href="#用Pygments美化你的代码块" class="headerlink" title="用Pygments美化你的代码块"></a>用Pygments美化你的代码块</h3><p><a href="http://pygments.org/" target="_blank" rel="noopener">Pygments</a>是Python上的高亮代码块的通用库，支持很多种语言的代码，具体多少种呢？管它呢，反正很好用。说白了它就是一个css主题。<br>python-markdown和python-markdown2都支持Pygments语法高亮，并且它们都依赖于Pygments库。</p><h4 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h4><ul><li>先去选个好看的颜色，<a href="http://pygments.org/demo/440022/" target="_blank" rel="noopener">http://pygments.org/demo/440022/</a>，在右侧的<code>Use this style:</code>处选择，我是用的<code>monokai</code></li><li>查看这个页面的源代码，把<code>pygments.css</code>弄出来</li><li>把<code>pygments.css</code>中的<code>.syntax</code>全部替换成<code>.codehilite</code>，然后在你的网页中引用</li><li>还要小改一下你的python代码</li><li>python-markdown：<code>html = markdown2.markdown(markdown_text, extras=[&quot;fenced-code-blocks&quot;])</code> （extras的名字是固定的，和css中的codehilite是对应的）</li><li>python-markdown2：<code>html = markdown.Markdown(extensions=[&#39;codehilite&#39;]).convert(markdown_text)</code> （extensions的名字是固定的，和css中的codehilite是对应的）</li></ul><p>大功告成，赶快去爽一下吧！</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;markdown库简介&quot;&gt;&lt;a href=&quot;#markdown库简介&quot; class=&quot;headerlink&quot; title=&quot;markdown库简介&quot;&gt;&lt;/a&gt;markdown库简介&lt;/h3&gt;&lt;p&gt;Python的markdown库流行的有两个，&lt;a href=&quot;ht
+      
+    
+    </summary>
+    
+      <category term="Python" scheme="http://fatsoon.com/categories/Python/"/>
+    
+    
+      <category term="Django" scheme="http://fatsoon.com/tags/Django/"/>
+    
+  </entry>
+  
+</feed>
