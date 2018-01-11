@@ -20,20 +20,20 @@
     
     
     <meta name="keywords" content="Android">
-    <meta name="description" content="前言发现使用Twitter时发现它的webview全都是用chrome打开的，而且是单独的一个tab，并且写着由Chrome提供支持，如图： 从Chrome官网了解到这个叫做Chrome Custom Tabs，它和Chrome App以及WebView的加载速度对比图如下： 用法首先需要在你的项目里添加Custom Tabs Support Library。打开build.gradle并在dep">
+    <meta name="description" content="前言发现使用Twitter时发现它的webview全都是用chrome打开的，而且是单独的一个tab，并且写着由Chrome提供支持，如图：                                                                                                           从Chrome官网了解到这个叫做Chrome">
 <meta name="keywords" content="Android">
 <meta property="og:type" content="article">
 <meta property="og:title" content="在Android中使用Chrome Customtabs">
 <meta property="og:url" content="http://fatsoon.com/2016/08/17/Use-Chrome-Customtabs-In-Android/index.html">
 <meta property="og:site_name" content="fatsoon的博客">
-<meta property="og:description" content="前言发现使用Twitter时发现它的webview全都是用chrome打开的，而且是单独的一个tab，并且写着由Chrome提供支持，如图： 从Chrome官网了解到这个叫做Chrome Custom Tabs，它和Chrome App以及WebView的加载速度对比图如下： 用法首先需要在你的项目里添加Custom Tabs Support Library。打开build.gradle并在dep">
+<meta property="og:description" content="前言发现使用Twitter时发现它的webview全都是用chrome打开的，而且是单独的一个tab，并且写着由Chrome提供支持，如图：                                                                                                           从Chrome官网了解到这个叫做Chrome">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://fatsoon.com/images/use-chrome-customtabs-in-android-0.png">
 <meta property="og:image" content="http://fatsoon.com/images/use-chrome-customtabs-in-android-2.gif">
 <meta property="og:updated_time" content="2018-01-11T14:45:46.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="在Android中使用Chrome Customtabs">
-<meta name="twitter:description" content="前言发现使用Twitter时发现它的webview全都是用chrome打开的，而且是单独的一个tab，并且写着由Chrome提供支持，如图： 从Chrome官网了解到这个叫做Chrome Custom Tabs，它和Chrome App以及WebView的加载速度对比图如下： 用法首先需要在你的项目里添加Custom Tabs Support Library。打开build.gradle并在dep">
+<meta name="twitter:description" content="前言发现使用Twitter时发现它的webview全都是用chrome打开的，而且是单独的一个tab，并且写着由Chrome提供支持，如图：                                                                                                           从Chrome官网了解到这个叫做Chrome">
 <meta name="twitter:image" content="http://fatsoon.com/images/use-chrome-customtabs-in-android-0.png">
     
         <link rel="alternate" type="application/atom+xml" title="fatsoon的博客" href="/atom.xml">
@@ -135,7 +135,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="検索">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -197,8 +197,20 @@
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><h3 id="发现"><a href="#发现" class="headerlink" title="发现"></a>发现</h3><p>使用Twitter时发现它的<code>webview</code>全都是用<code>chrome</code>打开的，而且是单独的一个tab，并且写着<code>由Chrome提供支持</code>，如图：<br><img src="/images/use-chrome-customtabs-in-android-0.png" alt=""></p>
-<p>从Chrome官网了解到这个叫做<code>Chrome Custom Tabs</code>，它和Chrome App以及WebView的加载速度对比图如下：<br><img src="/images/use-chrome-customtabs-in-android-2.gif" alt=""></p>
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><h3 id="发现"><a href="#发现" class="headerlink" title="发现"></a>发现</h3><p>使用Twitter时发现它的<code>webview</code>全都是用<code>chrome</code>打开的，而且是单独的一个tab，并且写着<code>由Chrome提供支持</code>，如图：<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/images/use-chrome-customtabs-in-android-0.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+<p>从Chrome官网了解到这个叫做<code>Chrome Custom Tabs</code>，它和Chrome App以及WebView的加载速度对比图如下：<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/images/use-chrome-customtabs-in-android-2.gif" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
 <h2 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h2><p>首先需要在你的项目里添加<code>Custom Tabs Support Library</code>。打开<code>build.gradle</code>并在<code>dependency</code>中添加依赖库，<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line">    ...</span><br><span class="line">    compile &apos;com.android.support:customtabs:24.1.0&apos;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h3 id="打开一个Chrome-Custom-Tab"><a href="#打开一个Chrome-Custom-Tab" class="headerlink" title="打开一个Chrome Custom Tab"></a>打开一个Chrome Custom Tab</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">String url = ¨https://paul.kinlan.me/¨;</span><br><span class="line">CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();</span><br><span class="line">CustomTabsIntent customTabsIntent = builder.build();</span><br><span class="line">customTabsIntent.launchUrl(this, Uri.parse(url));</span><br></pre></td></tr></table></figure>
 <h3 id="设置Toolbar的颜色"><a href="#设置Toolbar的颜色" class="headerlink" title="设置Toolbar的颜色"></a>设置Toolbar的颜色</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">builder.setToolbarColor(colorInt);</span><br></pre></td></tr></table></figure>
@@ -213,7 +225,7 @@
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2018-01-11T14:45:46.000Z" itemprop="dateUpdated">2018-01-11 22:45:46</time>
+    最終更新：<time datetime="2018-01-11T14:45:46.000Z" itemprop="dateUpdated">2018-01-11 22:45:46</time>
 </span><br>
 
 
@@ -372,7 +384,7 @@
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+            <span>このブログの内容物は<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja">クリエイティブ・コモンズ 表示 - 非営利 - 継承 4.0 国際ライセンスの下に提供されています</a></span>
         </p>
     </div>
     <div class="bottom">

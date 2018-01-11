@@ -135,7 +135,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="検索">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -203,8 +203,20 @@
         <div class="post-content" id="post-content" itemprop="postContent">
             <p>今天想要实现这样的效果，给<code>ScrollView</code>加<code>paddingTop</code>，并且滑动的时候能滑动到<code>paddingTop</code>所占的区域,<br>发现直接设置<code>paddingTop</code>是不行的，滑动的时候，内容部分会被<code>paddingTop</code>盖住，需要加这样的属性，<br><code>android:clipToPadding=&quot;false&quot;</code></p>
 <h3 id="XML代码"><a href="#XML代码" class="headerlink" title="XML代码"></a>XML代码</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;ScrollView</span><br><span class="line">  android:id=&quot;@+id/scrollview&quot;</span><br><span class="line">  android:layout_width=&quot;match_parent&quot;</span><br><span class="line">  android:layout_height=&quot;match_parent&quot;</span><br><span class="line">  android:clipToPadding=&quot;false&quot;</span><br><span class="line">  android:paddingTop=&quot;180dp&quot;</span><br><span class="line">  android:scrollbarSize=&quot;2.0dp&quot;</span><br><span class="line">  android:scrollbarThumbVertical=&quot;@drawable/scrollbar_detail&quot;&gt;</span><br><span class="line">&lt;/ScrollView&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="ScrollView充满真个屏幕，上面是padding"><a href="#ScrollView充满真个屏幕，上面是padding" class="headerlink" title="ScrollView充满真个屏幕，上面是padding"></a>ScrollView充满真个屏幕，上面是padding</h3><p><img src="/images/QQ20150121-2@2x.jpg" alt="滑动前"></p>
-<h3 id="滑动后可覆盖padding区域"><a href="#滑动后可覆盖padding区域" class="headerlink" title="滑动后可覆盖padding区域"></a>滑动后可覆盖padding区域</h3><p><img src="/images/QQ20150121-1@2x.jpg" alt="滑动后"></p>
+<h3 id="ScrollView充满真个屏幕，上面是padding"><a href="#ScrollView充满真个屏幕，上面是padding" class="headerlink" title="ScrollView充满真个屏幕，上面是padding"></a>ScrollView充满真个屏幕，上面是padding</h3><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/images/QQ20150121-2@2x.jpg" alt="滑动前" title="">
+                </div>
+                <div class="image-caption">滑动前</div>
+            </figure>
+<h3 id="滑动后可覆盖padding区域"><a href="#滑动后可覆盖padding区域" class="headerlink" title="滑动后可覆盖padding区域"></a>滑动后可覆盖padding区域</h3><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/images/QQ20150121-1@2x.jpg" alt="滑动后" title="">
+                </div>
+                <div class="image-caption">滑动后</div>
+            </figure>
 
         </div>
 
@@ -212,7 +224,7 @@
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2018-01-11T14:45:46.000Z" itemprop="dateUpdated">2018-01-11 22:45:46</time>
+    最終更新：<time datetime="2018-01-11T14:45:46.000Z" itemprop="dateUpdated">2018-01-11 22:45:46</time>
 </span><br>
 
 
@@ -378,7 +390,7 @@
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+            <span>このブログの内容物は<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja">クリエイティブ・コモンズ 表示 - 非営利 - 継承 4.0 国際ライセンスの下に提供されています</a></span>
         </p>
     </div>
     <div class="bottom">

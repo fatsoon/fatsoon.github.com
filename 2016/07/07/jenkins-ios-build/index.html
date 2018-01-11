@@ -137,7 +137,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="検索">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -213,10 +213,30 @@
 <h2 id="配置jenkins"><a href="#配置jenkins" class="headerlink" title="配置jenkins"></a>配置jenkins</h2><h3 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h3><p>在<code>系统管理</code>-<code>管理插件</code>-<code>可选插件</code>中搜索xcode，选择<code>Xcode integration</code>，点击<code>直接安装</code></p>
 <p><em>注意：如果<code>可选插件</code>列表为空，说明无法连接到jenkins插件中心。可在<code>高级</code>-<code>升级站点</code>中填写<code>http://mirror.xmission.com/jenkins/updates/update-center.json</code></em></p>
 <h2 id="创建xcode打包任务"><a href="#创建xcode打包任务" class="headerlink" title="创建xcode打包任务"></a>创建xcode打包任务</h2><h3 id="创建一个项目"><a href="#创建一个项目" class="headerlink" title="创建一个项目"></a>创建一个项目</h3><p><code>新建</code>-<code>构建一个自由风格的软件项目</code></p>
-<h3 id="配置项目"><a href="#配置项目" class="headerlink" title="配置项目"></a>配置项目</h3><h4 id="项目选项"><a href="#项目选项" class="headerlink" title="项目选项"></a>项目选项</h4><p><img src="/images/jenkins-ios-build-0.png" alt=""><br>勾选<code>丢弃旧的构建</code></p>
-<h4 id="源码管理"><a href="#源码管理" class="headerlink" title="源码管理"></a>源码管理</h4><p><img src="/images/jenkins-ios-build-1.png" alt=""><br>选择<code>Subversion</code></p>
+<h3 id="配置项目"><a href="#配置项目" class="headerlink" title="配置项目"></a>配置项目</h3><h4 id="项目选项"><a href="#项目选项" class="headerlink" title="项目选项"></a>项目选项</h4><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/images/jenkins-ios-build-0.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>勾选<code>丢弃旧的构建</code></p>
+<h4 id="源码管理"><a href="#源码管理" class="headerlink" title="源码管理"></a>源码管理</h4><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/images/jenkins-ios-build-1.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>选择<code>Subversion</code></p>
 <h4 id="增加构建步骤"><a href="#增加构建步骤" class="headerlink" title="增加构建步骤"></a>增加构建步骤</h4><p>添加Xcode</p>
-<h4 id="Xcode构建配置"><a href="#Xcode构建配置" class="headerlink" title="Xcode构建配置"></a>Xcode构建配置</h4><h5 id="General-build-settings"><a href="#General-build-settings" class="headerlink" title="General build settings"></a>General build settings</h5><p><img src="/images/jenkins-ios-build-2.png" alt=""></p>
+<h4 id="Xcode构建配置"><a href="#Xcode构建配置" class="headerlink" title="Xcode构建配置"></a>Xcode构建配置</h4><h5 id="General-build-settings"><a href="#General-build-settings" class="headerlink" title="General build settings"></a>General build settings</h5><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/images/jenkins-ios-build-2.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
 <ul>
 <li><p><code>Target</code>填写要打包的Target</p>
 </li>
@@ -229,7 +249,14 @@
 <li><p><code>Output directory</code>填<code>/Users/xxx/jenkinsBuild/ios</code></p>
 </li>
 </ul>
-<h5 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h5><p><img src="/images/jenkins-ios-build-3.png" alt=""><br>其它均为默认配置</p>
+<h5 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h5><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/images/jenkins-ios-build-3.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>其它均为默认配置</p>
 <h2 id="执行项目"><a href="#执行项目" class="headerlink" title="执行项目"></a>执行项目</h2><p>首次执行项目时，codesign会访问你的钥匙串，选择<code>永久允许</code>即可。</p>
 <p>好了，享受一键build吧</p>
 
@@ -239,7 +266,7 @@
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2018-01-11T14:45:46.000Z" itemprop="dateUpdated">2018-01-11 22:45:46</time>
+    最終更新：<time datetime="2018-01-11T14:45:46.000Z" itemprop="dateUpdated">2018-01-11 22:45:46</time>
 </span><br>
 
 
@@ -405,7 +432,7 @@
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+            <span>このブログの内容物は<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja">クリエイティブ・コモンズ 表示 - 非営利 - 継承 4.0 国際ライセンスの下に提供されています</a></span>
         </p>
     </div>
     <div class="bottom">
