@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>fatsoon的博客</title>
-  <icon>https://www.gravatar.com/avatar/58bed3942ee46c20c780ece2ccd54cd2</icon>
+  
   <subtitle>肥起来吧</subtitle>
   <link href="/atom.xml" rel="self"/>
   
@@ -11,7 +11,7 @@
   
   <author>
     <name>fatsoon</name>
-    <email>fanshuo1989@gmail.com</email>
+    
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
